@@ -57,6 +57,20 @@ var colorFilter = new pixi.ColorMatrixFilter();
 colorFilter.matrix = [1,0,0,0,greenValue,1,0,0,0,0,1,0,0,0,0,1];
 building.filters = [colorFilter]; // if you comment out that line, the TilingSprite WILL display
 
+
+var airplaneTexture = pixi.Texture.fromImage("assets/airplane.png");
+var airplane = new pixi.Sprite(airplaneTexture);
+airplane.interactive = true;
+airplane.buttonMode = true;
+
+airplane.position.x = GAME_WIDTH - 280;
+airplane.position.y = 340;
+airplane.scale.x = 0.5;
+airplane.scale.y = 0.5;
+
+stage.addChild(airplane);
+
+
 requestAnimationFrame(animate);
 
 function animate() {
@@ -68,6 +82,12 @@ function animate() {
     }
     greenValue += addValue;
     colorFilter.matrix = [1,0,0,0,greenValue,1,0,0,0,0,1,0,0,0,0,1];
+
+
+    airplane.position.x = airplane.position.x - 1;
+    if(airplane.position.x <= 0 - 280){
+        airplane.position.x = GAME_WIDTH;
+    }
 
     renderer.render(stage);
 
